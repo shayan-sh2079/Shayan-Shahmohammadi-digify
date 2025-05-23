@@ -1,0 +1,2 @@
+export const ITEM_PER_PAGE_OPTIONS = [10, 15, 20];
+export const ITEMS_PER_PAGE = ITEM_PER_PAGE_OPTIONS[0];
