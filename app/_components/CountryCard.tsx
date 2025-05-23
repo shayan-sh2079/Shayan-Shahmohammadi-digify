@@ -9,7 +9,12 @@ export default function CountryCard({ country }: Props) {
   return (
     <div className="col-span-1 overflow-hidden rounded-lg bg-white shadow-lg shadow-md">
       <div className="relative h-32 sm:h-36 md:h-40">
-        <Image src={country.flags.png} alt={country.flags.alt} fill />
+        <Image
+          src={country.flags.png}
+          alt={country.flags.alt}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 450px"
+        />
       </div>
 
       <div className="p-4">

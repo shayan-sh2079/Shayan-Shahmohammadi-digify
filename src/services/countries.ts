@@ -5,39 +5,44 @@ export const getCountries = async (
   itemsPerPage: number,
   search?: string,
 ) => {
-  const response = await fetch(
-    "https://restcountries.com/v3.1/all?fields=flags,name,population,area,region",
-  );
-  const countries: CountriesRes["countries"] = await response.json();
-  console.log(111);
-  console.log(countries);
-  console.log(page);
-  console.log(itemsPerPage);
-  console.log(search);
+  try {
+    const response = await fetch(
+      "https://restcountries.com/v3.1/all?fields=flags,name,population,area,region",
+    );
+    if (!response.ok) throw new Error("Something went wrong");
 
-  const countriesWithData = countries.filter((country) => {
-    const hasData =
-      country.area &&
-      country.population &&
-      country.name.common &&
-      country.flags.png &&
-      country.flags.alt &&
-      country.region;
-    const isSearched =
-      !search ||
-      country.name.common.toLowerCase().includes(search.toLowerCase()) ||
-      country.region.toLowerCase().includes(search.toLowerCase());
+    const countries: CountriesRes["countries"] = await response.json();
 
-    return isSearched && hasData;
-  });
+    const countriesWithData = countries.filter((country) => {
+      const hasData =
+        country.area &&
+        country.population &&
+        country.name.common &&
+        country.flags.png &&
+        country.flags.alt &&
+        country.region;
+      const isSearched =
+        !search ||
+        country.name.common.toLowerCase().includes(search.toLowerCase()) ||
+        country.region.toLowerCase().includes(search.toLowerCase());
 
-  const start = (page - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
+      return isSearched && hasData;
+    });
 
-  const paginatedCountries = countriesWithData.slice(start, end);
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
 
-  return {
-    countries: paginatedCountries,
-    pages: Math.ceil(countriesWithData.length / itemsPerPage),
-  };
+    const paginatedCountries = countriesWithData.slice(start, end);
+
+    return {
+      countries: paginatedCountries,
+      pages: Math.ceil(countriesWithData.length / itemsPerPage),
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      countries: [],
+      pages: 0,
+    };
+  }
 };
