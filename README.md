@@ -3,19 +3,19 @@
 First, install the dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
 Then, build the project:
 
 ```bash
-pnpm build
+npm run build
 ```
 
 And after that, run the project:
 
 ```bash
-pnpm start
+npm run start
 ```
 
 then visit [localhost](http://localhost:3000)
