@@ -8,6 +8,7 @@ export const getCountries = async (
   try {
     const response = await fetch(
       "https://restcountries.com/v3.1/all?fields=flags,name,population,area,region",
+      { cache: "force-cache" },
     );
     if (!response.ok) throw new Error("Something went wrong");
 

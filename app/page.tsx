@@ -5,6 +5,8 @@ import { ITEMS_PER_PAGE } from "@/constants/general";
 import Header from "./_components/Header";
 import Footer from "./_components/Footer";
 
+export const revalidate = 86400; //one day
+
 export default async function Home({
   searchParams,
 }: {
